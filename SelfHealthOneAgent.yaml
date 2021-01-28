@@ -1,0 +1,36 @@
+# Example for how it would be called: 
+# ansible-playbook OneAgent2.yaml  --extra-vars  '{"metadata":{"HOST_NAME":"D","HOST_PROVIDER":"D","HOST_REGION":"D","HOST_AZ":"D","HOST_TIER":"D","HOST_PURPOSE":"D","HOST_PLATFORM_COMPUTE_ALERTGROUP":"D","HOST_PLATFORM_STORAGE_ALERTGROUP":"D","HOST_PLATFORM_NETWORK_ALERTGROUP":"D","HOST_APPID":"D","HOST_APPNAME":"D","HOST_APPORG":"D","HOST_APPALERTGROUP":"D","HOST_APPISPRIMARY":"D","HOST_APPCLIENT":"D"}, "HOST_DCUID":"D"}'
+---
+- hosts: localhost
+  tasks: 
+    - name: Set Metadata
+      set_fact:
+        oneagent_metadata: "{{ item.key }}={{ item.value }}"
+      with_dict: "{{ metadata }}"
+      register: oneagent_meta
+
+    - name: Import the OneAgent 
+      import_role:
+        name: Dynatrace.OneAgent
+      vars: 
+        dynatrace_environment_url: <tenant id>.dev.dynatracelabs.com
+        dynatrace_paas_token: <paas token>
+        dynatrace_oneagent_version: 'latest'
+        dynatrace_oneagent_install_args:
+          APP_LOG_CONTENT_ACCESS: 1
+          INFRA_ONLY: 0
+          HOST_GROUP: Mosaic.PRD
+          "--set-proxy": "{{ proxy }}"
+          INSTALL_PATH: /app/bin/dynatrace/oneagent
+        dynatrace_oneagent_hostname: ""
+        dynatrace_oneagent_host_tags: ""
+        dynatrace_oneagent_host_metadata: >-
+          {{ oneagent_meta.results | map(attribute='ansible_facts.oneagent_metadata') | join(' ') }}
+          NETWORK_ZONE={{ NETWORK_ZONE }} 
+        dynatrace_oneagent_package_state: present
+        dynatrace_oneagent_state: started
+        dynatrace_oneagent_restart_state: restarted 
+
+        
+    # Metadata Type SubType Purpose 
+    # Seperate playbook for self health oneagent 
