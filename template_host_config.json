@@ -17,14 +17,11 @@
         "HOST_APPALERTGROUP":"HOST_APPALERTGROUP", 
         "HOST_APPISPRIMARY":"HOST_APPISPRIMARY",
         "HOST_APPCLIENT":"HOST_APPCLIENT"
-<<<<<<< HEAD
     },
 
     "tags":{
         "HOST_NAME":"HOST-NAME",
         "HOST_PROVIDER":"HOST_PROVIDER", 
         "HOST_PURPOSE":"HOST_PURPOSE"   
-=======
->>>>>>> d23bda8da442cd259766831b2ca0f2d471b007fe
     }
 }
