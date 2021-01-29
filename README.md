@@ -1,7 +1,7 @@
 Dynatrace-Custom-OneAgent
 =========================
 
-<strong>Purpose: </strong> Automate the process of downloading and configuring the Dynatrace OneAgent, this is an automated approach that offers setting all tags/metadat for a Dynatrace tenant with a simple json file.
+<strong>Purpose: </strong> Automate the process of downloading and configuring the Dynatrace OneAgent, this is an automated approach that offers setting all tags/metadata for a Dynatrace tenant with a simple json file.
 <strong> To install the OneAgent you must have run the python script with root privileges </strong>
 
 
