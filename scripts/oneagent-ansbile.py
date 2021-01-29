@@ -55,7 +55,6 @@ def call_playbook(input_str):
 	"""
 	command = "ansible-playbook {}  --extra-vars  {}".format( OneAgentPlaybook, input_str)
 	os.system(command) 
-	# print(command)
 	
 if __name__ == "__main__":
 	metadata = create_input_vars(host_config)

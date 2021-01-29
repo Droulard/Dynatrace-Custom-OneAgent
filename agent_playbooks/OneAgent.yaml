@@ -1,5 +1,5 @@
-# Example for how it would be called: 
-# ansible-playbook OneAgent2.yaml  --extra-vars  '{"metadata":{"HOST_NAME":"D","HOST_PROVIDER":"D","HOST_REGION":"D","HOST_AZ":"D","HOST_TIER":"D","HOST_PURPOSE":"D","HOST_PLATFORM_COMPUTE_ALERTGROUP":"D","HOST_PLATFORM_STORAGE_ALERTGROUP":"D","HOST_PLATFORM_NETWORK_ALERTGROUP":"D","HOST_APPID":"D","HOST_APPNAME":"D","HOST_APPORG":"D","HOST_APPALERTGROUP":"D","HOST_APPISPRIMARY":"D","HOST_APPCLIENT":"D"}, "HOST_DCUID":"D"}'
+# OneAgent.yaml
+# author: kyle.droulard@dynatrace.com
 ---
 - hosts: localhost
   tasks: 
