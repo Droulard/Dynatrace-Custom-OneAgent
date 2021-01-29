@@ -22,8 +22,8 @@ def create_attribute_str(attribute_type, attribute_dict, attribute_str):
 
 def create_opt_metadata_str(metadata_dict, metadata_str):
 	for key in optional_metadata:
-		if(key in attribute_dict and len(attribute_dict[key]) >0):
-			metadata_str+= " ,\"{}\":\"{}\",".format(key, attribute_dict[key])
+		if(key in metadata_dict and len(metadata_dict[key]) >0):
+			metadata_str+= " ,\"{}\":\"{}\",".format(key, metadata_dict[key])
 	
 	return metadata_str
 
