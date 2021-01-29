@@ -1,5 +1,5 @@
-# Example for how it would be called: 
-# ansible-playbook OneAgent2.yaml  --extra-vars  '{"metadata":{"HOST_NAME":"D","HOST_PROVIDER":"D","HOST_REGION":"D","HOST_AZ":"D","HOST_TIER":"D","HOST_PURPOSE":"D","HOST_PLATFORM_COMPUTE_ALERTGROUP":"D","HOST_PLATFORM_STORAGE_ALERTGROUP":"D","HOST_PLATFORM_NETWORK_ALERTGROUP":"D","HOST_APPID":"D","HOST_APPNAME":"D","HOST_APPORG":"D","HOST_APPALERTGROUP":"D","HOST_APPISPRIMARY":"D","HOST_APPCLIENT":"D"}, "HOST_DCUID":"D"}'
+# OneAgent.yaml
+# author: kyle.droulard@dynatrace.com
 ---
 - hosts: localhost
   tasks: 
@@ -9,20 +9,28 @@
       with_dict: "{{ metadata }}"
       register: oneagent_meta
 
+    - name: Set Tags
+      set_fact:
+        oneagent_tags: "{{ item.key }}={{ item.value }}"
+      with_dict: "{{ tags }}"
+      register: oneagent_tags_dict
+      when: tags is defined
+
     - name: Install The OneAgent 
       import_role:
         name: Dynatrace.OneAgent
       vars: 
         dynatrace_environment_url: <tenant id>.dev.dynatracelabs.com
-        dynatrace_paas_token: <paas toke>
+        dynatrace_paas_token: <paas token>
         dynatrace_oneagent_version: 'latest'
         dynatrace_oneagent_install_args:
           APP_LOG_CONTENT_ACCESS: 1
           INFRA_ONLY: 0
           HOST_GROUP: "{{ HOST_GROUP }}"
-          # INSTALL_PATH: /app/bin/dynatrace/oneagent
+          INSTALL_PATH: /app/bin/dynatrace/oneagent
           
-        dynatrace_oneagent_host_tags: ""
+        dynatrace_oneagent_host_tags: >- 
+          "{{ oneagent_tags_dict.results | map(attribute='ansible_facts.oneagent_tags') | join(' ') | default(" ") }}"
         dynatrace_oneagent_hostname: ""
         dynatrace_oneagent_host_metadata: >-
           {{ oneagent_meta.results | map(attribute='ansible_facts.oneagent_metadata') | join(' ') }}

@@ -6,9 +6,9 @@
         "HOST_DCUID":"DT-TEST-25",
         "HOST_PROVIDER":"DT", 
         "HOST_REGION":"US", 
-        "HOST_AZ":" EAST", 
+        "HOST_AZ":"EAST", 
         "HOST_TIER":"4 ", 
-        "HOST_PURPOSE":" TESTING", 
+        "HOST_PURPOSE":"TESTING", 
         "HOST_PLATFORM_COMPUTE_ALERTGROUP":"ADP-COMPUTE", 
         "HOST_PLATFORM_STORAGE_ALERTGROUP":"ADP-STORAGE", 
         "HOST_PLATFORM_NETWORK_ALERTGROUP":"ADP-NETWORK", 
@@ -19,5 +19,11 @@
         "HOST_APPISPRIMARY":"PRIMARY",
         "HOST_APPCLIENT":"DT-INTERNAL",
         "HOST_AUTOMATED":"TRUE" 
+    },
+    
+    "tags":{
+        "HOST_NAME":"DT-AUTOMATED-TEST",
+        "HOST_PROVIDER":"DT", 
+        "HOST_PURPOSE":"TESTING" 
     }
 }

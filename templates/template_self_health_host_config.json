@@ -1,0 +1,15 @@
+{
+    "metadata":{
+        "CLUSTERNAME": "SelfHealth",
+        "NODETYPE":"ActiveGate",
+        "NODESUBTYPE": "Environment",
+        "NODEPURPOSE": "OneAgent",
+        "NETWORKZONE": "NETWORKZONE",
+        "TENANT": "TENANT"
+    },
+
+    "tags":{
+        "NETWORKZONE": "NETWORKZONE",
+        "TENANT": "TENANT"
+    }
+}
