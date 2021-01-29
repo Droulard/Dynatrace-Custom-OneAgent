@@ -1,0 +1,10 @@
+{
+    "metadata":{
+        "CLUSTERNAME": "SelfHealth",
+        "NODETYPE":"ActiveGate",
+        "NODESUBTYPE": "Environment",
+        "NODEPURPOSE": "OneAgent",
+        "NETWORKZONE": "ex.netzone",
+        "TENANT": "NonProd_DIT"
+    }
+}

@@ -1,25 +1,29 @@
 import json, os
 
 # Global Variables
-OneAgentPlaybook="OneAgent.yaml"
-host_config="host_config.json"
+OneAgentPlaybook="SelfHealthOneAgent.yaml"
+host_config="./test_configs/self_health_host_config.json"
 optional_metadata = ["HOST_DCUID"]
 
-def create_metadata_str(metadata, metadata_str):
+def create_attribute_str(attribute_type, attribute_dict, attribute_str):
 	"""
-	Purpose: Parse the metadata
+	Purpose: Parse the metadata or tags
 	"""
-	metadata_str= "\"metadata\":{"
-	for key in metadata:
+	attribute_str= "\"{}\":{{".format(attribute_type)
+	for key in attribute_dict:
 		if(key in optional_metadata): 
 			pass
-		elif(key != list(metadata)[-1]):
-			metadata_str += "\"{}\":\"{}\",".format(key, metadata[key])
+		elif(key != list(attribute_dict)[-1]):
+			attribute_str += "\"{}\":\"{}\",".format(key, attribute_dict[key])
 		else:
-			metadata_str+="\"{}\":\"{}\"}},".format(key, metadata[key])
+			attribute_str+="\"{}\":\"{}\"}}".format(key, attribute_dict[key])
+	
+	return attribute_str
+
+def create_opt_metadata_str(metadata_dict, metadata_str):
 	for key in optional_metadata:
-		if(len(metadata[key]) >0):
-			metadata_str+= " \"{}\":\"{}\",".format(key, metadata[key])
+		if(key in attribute_dict and len(attribute_dict[key]) >0):
+			metadata_str+= " ,\"{}\":\"{}\",".format(key, attribute_dict[key])
 	
 	return metadata_str
 
@@ -34,8 +38,13 @@ def create_input_vars(host_config):
 
 	input_str = "\'{"	
 
-	input_str+= create_metadata_str(host_info["metadata"], input_str)
-	input_str += "\"{}\":\"{}\"".format("HOST_GROUP", host_info["HOST_GROUP"])
+	input_str+= create_attribute_str("metadata", host_info["metadata"], input_str)
+	
+	if ("tags" in host_info):
+		input_str+= "," + create_attribute_str("tags", host_info['tags'], input_str)
+	
+	if ("HOST_GROUP" in host_info):
+		input_str += ",\"{}\":\"{}\"".format("HOST_GROUP", host_info["HOST_GROUP"])
 	
 	input_str += "}\'"
 	

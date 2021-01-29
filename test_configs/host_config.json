@@ -19,5 +19,11 @@
         "HOST_APPISPRIMARY":"PRIMARY",
         "HOST_APPCLIENT":"DT-INTERNAL",
         "HOST_AUTOMATED":"TRUE" 
+    },
+    
+    "tags":{
+        "HOST_NAME":"DT-AUTOMATED-TEST",
+        "HOST_PROVIDER":"DT", 
+        "HOST_PURPOSE":" TESTING" 
     }
 }

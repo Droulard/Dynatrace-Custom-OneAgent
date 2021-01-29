@@ -8,8 +8,15 @@
         oneagent_metadata: "{{ item.key }}={{ item.value }}"
       with_dict: "{{ metadata }}"
       register: oneagent_meta
+      
+    - name: Set Tags
+      set_fact:
+        oneagent_tags: "{{ item.key }}={{ item.value }}"
+      with_dict: "{{ tags }}"
+      register: oneagent_tags_dict
+      when: tags is defined
 
-    - name: Import the OneAgent 
+    - name: Install the SelfHealthOneAgent 
       import_role:
         name: Dynatrace.OneAgent
       vars: 
@@ -19,18 +26,14 @@
         dynatrace_oneagent_install_args:
           APP_LOG_CONTENT_ACCESS: 1
           INFRA_ONLY: 0
-          HOST_GROUP: Mosaic.PRD
-          "--set-proxy": "{{ proxy }}"
+          # "--set-proxy": "{{ proxy }}"
           INSTALL_PATH: /app/bin/dynatrace/oneagent
+          
         dynatrace_oneagent_hostname: ""
-        dynatrace_oneagent_host_tags: ""
+        dynatrace_oneagent_host_tags: >- 
+          "{{ oneagent_tags_dict.results | map(attribute='ansible_facts.oneagent_tags') | join(' ') | default(" ") }}"
         dynatrace_oneagent_host_metadata: >-
-          {{ oneagent_meta.results | map(attribute='ansible_facts.oneagent_metadata') | join(' ') }}
-          NETWORK_ZONE={{ NETWORK_ZONE }} 
+          {{ oneagent_meta.results | map(attribute='ansible_facts.oneagent_metadata') | join(' ') }} 
         dynatrace_oneagent_package_state: present
         dynatrace_oneagent_state: started
         dynatrace_oneagent_restart_state: restarted 
-
-        
-    # Metadata Type SubType Purpose 
-    # Seperate playbook for self health oneagent 
