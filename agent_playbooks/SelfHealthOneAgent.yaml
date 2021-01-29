@@ -31,7 +31,7 @@
           
         dynatrace_oneagent_hostname: ""
         dynatrace_oneagent_host_tags: >- 
-          "{{ oneagent_tags_dict.results | map(attribute='ansible_facts.oneagent_tags') | join(' ') | default(" ") }}"
+          "{{ oneagent_tags_dict.results | map(attribute='ansible_facts.oneagent_tags') | join(' ') }}"
         dynatrace_oneagent_host_metadata: >-
           {{ oneagent_meta.results | map(attribute='ansible_facts.oneagent_metadata') | join(' ') }} 
         dynatrace_oneagent_package_state: present

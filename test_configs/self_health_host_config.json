@@ -6,5 +6,10 @@
         "NODEPURPOSE": "OneAgent",
         "NETWORKZONE": "ex.netzone",
         "TENANT": "NonProd_DIT"
+    },
+
+    "tags":{
+        "NETWORKZONE": "ex.netzone",
+        "TENANT": "NonProd_DIT"
     }
 }
