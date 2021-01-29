@@ -1,7 +1,7 @@
 import json, os
 
 # Global Variables
-OneAgentPlaybook="SelfHealthOneAgent.yaml"
+OneAgentPlaybook="./agent_playbooks/SelfHealthOneAgent.yaml"
 host_config="./test_configs/self_health_host_config.json"
 optional_metadata = ["HOST_DCUID"]
 
@@ -39,9 +39,8 @@ def create_input_vars(host_config):
 	input_str = "\'{"	
 
 	input_str+= create_attribute_str("metadata", host_info["metadata"], input_str)
-	
-	if ("tags" in host_info):
-		input_str+= "," + create_attribute_str("tags", host_info['tags'], input_str)
+
+	input_str+= "," + create_attribute_str("tags", host_info['tags'], input_str)
 	
 	if ("HOST_GROUP" in host_info):
 		input_str += ",\"{}\":\"{}\"".format("HOST_GROUP", host_info["HOST_GROUP"])
